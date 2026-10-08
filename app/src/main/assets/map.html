@@ -1,0 +1,9 @@
+<!doctype html><html lang="vi"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1"><link href="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.css" rel="stylesheet"><style>html,body,#map{height:100%;width:100%;margin:0}#error{position:absolute;top:8px;left:8px;background:#ffffe8;color:#111;padding:8px;display:none;z-index:10;font:12px sans-serif}.maplibregl-ctrl-attrib{font-size:10px}</style></head><body><div id="map"></div><div id="error">Không tải được bản đồ. Kiểm tra kết nối Internet.</div><script src="https://unpkg.com/maplibre-gl@4.7.1/dist/maplibre-gl.js"></script><script>
+(function(){try {
+ if(!window.maplibregl) throw Error('MapLibre unavailable');
+ const map=new maplibregl.Map({container:'map',center:[105.85,21.03],zoom:11,style:{version:8,sources:{osm:{type:'raster',tiles:['https://tile.openstreetmap.org/{z}/{x}/{y}.png'],tileSize:256,attribution:'© OpenStreetMap contributors'}},layers:[{id:'osm-tiles',type:'raster',source:'osm'}]}});
+ map.addControl(new maplibregl.NavigationControl({showCompass:false}),'top-right');
+ let pin=null; window.goToLocation=function(lon,lat){map.flyTo({center:[lon,lat],zoom:15});if(pin)pin.remove();pin=new maplibregl.Marker({color:'#1C8AB5'}).setLngLat([lon,lat]).addTo(map)};
+ map.on('error',function(){document.getElementById('error').style.display='block'});
+ }catch(e){document.getElementById('error').style.display='block'}})();
+</script></body></html>
